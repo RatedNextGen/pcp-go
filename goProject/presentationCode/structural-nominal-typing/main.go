@@ -2,44 +2,24 @@ package main
 
 import "fmt"
 
-type OrderID int
+type Meter int
+type Kilometer int
 
-type Order struct {
-	ID OrderID
-	Product string
-	Quantity int
-	Status string
+type Dog struct{}
+
+func (Dog) makeNoise() {
+	fmt.Println("wufwuf")
 }
 
-type Process interface {
-	Process(order *Order)
+type Noise interface {
+	makeNoise()
 }
 
-type FastProcess struct{}
-type SafeProcess struct{}
+func main() {
+	var noisemaker Noise = Dog{}
+	noisemaker.makeNoise()
 
-func (FastProcess) Process(order *Order){
-	order.Status = "schnell verarbeitet"
-}
-
-func (SafeProcess) Process(order *Order){
-	order.Status = "sicher verarbeitet"
-}
-
-func runProcess(p Process, order *Order){
-	p.Process(order)
-}
-
-func main(){
-	order := Order{
-		ID: 1,
-		Product: "Kaffee",
-		Quantity: 2,
-		Status: "neu",
-	}
-
-	fast := FastProcess{}
-	runProcess(fast, &order)
-
-	fmt.Printf("Bestellung %d: %s [%s]\n", order.ID, order.Product, order.Status)
+	var m Meter = 10
+	var km Kilometer = 10
+	fmt.Println(m, km)
 }

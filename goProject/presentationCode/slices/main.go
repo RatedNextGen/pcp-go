@@ -2,26 +2,21 @@ package main
 
 import "fmt"
 
-type Order struct {
-	ID int
-	Product string
-	Quantity int
-	Status string
-}
+func main() {
 
-func printOrders(orders []Order){
-	for _, order := range orders {
-		fmt.Printf("Bestellung %d: %s x%d [%s]\n", 
-			order.ID, order.Product, order.Quantity, order.Status)
-	}
-}
+	array := [5]int{1, 2, 3, 4, 5}
+	slice := array[1:4]
+	fmt.Println("array: ", array) //Output -> array:  [1 2 3 4 5]
+	fmt.Println("slice: ", slice) //Output -> slice:  [2 3 4]
 
-func main(){
-	orders := []Order{
-		{ID: 1, Product: "Kaffee", Quantity: 2, Status: "neu"},
-		{ID: 2, Product: "Tee", Quantity: 1, Status: "neu"},
-		{ID: 3, Product: "Wasser", Quantity: 4, Status: "neu"},
-	}
+	fmt.Println("len: ", len(slice)) //Output -> len:  3
+	fmt.Println("cap: ", cap(slice)) //Output -> cap:  4
 
-	printOrders(orders)
+	slice = append(slice, 10)
+	fmt.Println("newslice: ", slice) //Output -> newslice: [2 3 4 10]
+
+	slice[0] = 100
+	fmt.Println("array: ", array) //Output -> array:  [1 100 3 4 10]
+	fmt.Println("slice: ", slice) //Output -> slice:  [100 3 4 10]
+
 }

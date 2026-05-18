@@ -2,46 +2,42 @@ package main
 
 import "fmt"
 
-type Order struct {
-	ID int
-	Product string
-	Quantity int
-	Status string
+func goDefer() {
+	defer fmt.Println("Executed at the end")
+	fmt.Println("Start ...")
+	//Output:
+	//Start ...
+	//Executed at the end
 }
 
-func printOrders(orders []Order){
-	for _, order := range orders {
-		fmt.Printf("Bestellung %d: %s x%d [%s]\n", 
-			order.ID, order.Product, order.Quantity, order.Status)
-	}
+func goPanic() {
+	fmt.Println("Befor panic ")
+	panic("error XY")
+	fmt.Println("Will not be executed")
+	//Output:
+	//Befor panic
+	//panic: error XY
 }
 
-func buildOrderIndex(orders []Order) map[int]Order {
-	index := make(map[int]Order)
+func goRecover() {
+	defer func() {
+		error := recover()
 
-	for _, order := range orders {
-		index[order.ID] = order
-	}
-	return index
+		if error != nil {
+			fmt.Println("Catch Error")
+		}
+	}()
+	panic("Error XY")
+	//Output:
+	//Catch Error
 }
 
-func main(){
-	
-	defer fmt.Println("DEFER wird zuletzt ausgeführt!")
+func main() {
 
-	orders := []Order{
-		{ID: 1, Product: "Kaffee", Quantity: 2, Status: "neu"},
-		{ID: 2, Product: "Tee", Quantity: 1, Status: "neu"},
-		{ID: 3, Product: "Wasser", Quantity: 4, Status: "neu"},
-	}
+	goDefer()
 
-	printOrders(orders)
+	// goPanic()
 
-	orderIndex := buildOrderIndex(orders)
-	fmt.Println("\nDirekter Zugriff über Map:")
-	order, exists := orderIndex[2]
-	if exists {
-		fmt.Printf("Gefunden: Bestellung %d = %s x%d [%s]\n",
-			order.ID, order.Product, order.Quantity, order.Status)
-	}
+	goRecover()
+
 }
