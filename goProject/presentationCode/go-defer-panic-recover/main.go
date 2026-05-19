@@ -11,11 +11,11 @@ func goDefer() {
 }
 
 func goPanic() {
-	fmt.Println("Befor panic ")
+	fmt.Println("Before panic ")
 	panic("error XY")
 	fmt.Println("Will not be executed")
 	//Output:
-	//Befor panic
+	//Before panic
 	//panic: error XY
 }
 
