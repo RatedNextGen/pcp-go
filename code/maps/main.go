@@ -3,15 +3,15 @@ package main
 import "fmt"
 
 type Order struct {
-	ID int
-	Product string
+	ID       int
+	Product  string
 	Quantity int
-	Status string
+	Status   string
 }
 
-func printOrders(orders []Order){
+func printOrders(orders []Order) {
 	for _, order := range orders {
-		fmt.Printf("Bestellung %d: %s x%d [%s]\n", 
+		fmt.Printf("Bestellung %d: %s x%d [%s]\n",
 			order.ID, order.Product, order.Quantity, order.Status)
 	}
 }
@@ -25,7 +25,7 @@ func buildOrderIndex(orders []Order) map[int]Order {
 	return index
 }
 
-func main(){
+func main() {
 	orders := []Order{
 		{ID: 1, Product: "Kaffee", Quantity: 2, Status: "neu"},
 		{ID: 2, Product: "Tee", Quantity: 1, Status: "neu"},

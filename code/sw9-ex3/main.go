@@ -7,18 +7,17 @@ import (
 
 const (
 	ThreeSeconds = 3 * time.Second
-	HalfSecond = 500 * time.Millisecond
-
+	HalfSecond   = 500 * time.Millisecond
 )
 
-func doBlockingWait(d time.Duration){
+func doBlockingWait(d time.Duration) {
 	time.Sleep(d)
 }
 
-func doDemo(){
+func doDemo() {
 	done := make(chan bool)
 
-	go func(){
+	go func() {
 		doBlockingWait(ThreeSeconds)
 		fmt.Print("1")
 		result := "42"
@@ -36,19 +35,19 @@ func doDemo(){
 	fmt.Println("-> Now waiting for things to happen!")
 
 loop:
-		for{
-			select {
-				case <- done:
-					break loop
-				default:
-					fmt.Print(".")
-					doBlockingWait(HalfSecond)
-			}
-
+	for {
+		select {
+		case <-done:
+			break loop
+		default:
+			fmt.Print(".")
+			doBlockingWait(HalfSecond)
 		}
-		fmt.Println("\n-> Done.")
+
+	}
+	fmt.Println("\n-> Done.")
 }
 
-func main(){
+func main() {
 	doDemo()
 }
