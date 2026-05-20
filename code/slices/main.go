@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("cap: ", cap(slice)) //Output -> cap:  4
 
 	slice = append(slice, 10)
-	fmt.Println("newslice: ", slice) //Output -> newslice: [2 3 4 10]
+	fmt.Println("new slice: ", slice) //Output -> new slice: [2 3 4 10]
 
 	slice[0] = 100
 	fmt.Println("array: ", array) //Output -> array:  [1 100 3 4 10]
